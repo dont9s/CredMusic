@@ -17,9 +17,33 @@ android {
         }
     }
 }
+ext {
+    daggerVersion = '2.14.1'
+    lifecycle_version = '2.0.0'
+    retrofit_version = '2.6.0'
+    play_service_version = '17.0.0'
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+
+    //Dependency Injection
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:2.16"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    //architecture components
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+
+    //location
+    implementation "com.google.android.gms:play-services-location:$play_service_version"
+
+
     implementation 'com.android.support:appcompat-v7:28.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
