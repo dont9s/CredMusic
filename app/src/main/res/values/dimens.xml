@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="progress_diameter">96dp</dimen>
+    <dimen name="dim_44">44dp</dimen>
+
+    <dimen name="dim_56">56dp</dimen>
+    <dimen name="dim_62">62dp</dimen>
+    <dimen name="dim_16">16dp</dimen>
+    <dimen name="dim_80">80dp</dimen>
+
+    <dimen name="text_54">54sp</dimen>
+    <dimen name="text_96">96sp</dimen>
+    <dimen name="text_36">36sp</dimen>
+    <dimen name="text_16">16sp</dimen>
+
+
+
+</resources>

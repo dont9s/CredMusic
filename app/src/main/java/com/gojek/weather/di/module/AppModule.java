@@ -1,4 +1,4 @@
-package com.gojek.weather.di;
+package com.gojek.weather.di.module;
 
 import com.gojek.weather.service.repository.ApixuService;
 
@@ -22,4 +22,5 @@ public class AppModule {
                 .create(ApixuService.class);
 
     }
+
 }

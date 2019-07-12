@@ -5,24 +5,24 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
+import com.gojek.weather.helper.Constant;
 import com.gojek.weather.service.model.Weather;
 import com.gojek.weather.service.repository.WeatherRepository;
 
 import javax.inject.Inject;
 
-public class WeatherViewModel extends AndroidViewModel {
+public class WeatherViewModel extends ViewModel {
     private static final String TAG = WeatherViewModel.class.getCanonicalName();
 
     private final LiveData<Weather> weatherObservable;
 
 
     @Inject
-    public WeatherViewModel(@NonNull WeatherRepository weatherRepository, @NonNull Application application) {
-        super(application);
+    public WeatherViewModel(@NonNull WeatherRepository weatherRepository) {
 
-//        weatherObservable = weatherRepository.getWeather();
-        weatherObservable = null;
+        weatherObservable = weatherRepository.getWeather(Constant.APIXU_API_KEY, "Gurgaon", 5);
 
     }
 

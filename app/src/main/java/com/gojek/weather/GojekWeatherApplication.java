@@ -1,5 +1,7 @@
 package com.gojek.weather;
 
+import com.gojek.weather.di.component.DaggerAppComponent;
+
 import dagger.android.AndroidInjector;
 import dagger.android.DaggerApplication;
 
@@ -11,6 +13,8 @@ public class GojekWeatherApplication extends DaggerApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
+
     }
 
     public static synchronized GojekWeatherApplication getInstance() {
@@ -21,6 +25,6 @@ public class GojekWeatherApplication extends DaggerApplication {
 
     @Override
     protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
-        return null;
+        return DaggerAppComponent.builder().create(this);
     }
 }
