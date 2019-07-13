@@ -9,6 +9,7 @@ import dagger.android.support.DaggerAppCompatActivity;
 
 public abstract class BaseActivity<T extends ViewModel> extends DaggerAppCompatActivity {
 
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 1200;
     private T viewModel;
 
 

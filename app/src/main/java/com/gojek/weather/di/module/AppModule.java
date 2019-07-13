@@ -1,6 +1,11 @@
 package com.gojek.weather.di.module;
 
+import android.content.Context;
+
+import com.gojek.weather.GojekWeatherApplication;
+import com.gojek.weather.helper.PrefManager;
 import com.gojek.weather.service.repository.ApixuService;
+import com.google.gson.Gson;
 
 import javax.inject.Singleton;
 
@@ -23,4 +28,23 @@ public class AppModule {
 
     }
 
+    @Singleton
+    @Provides
+    Context provideContext(GojekWeatherApplication application) {
+        return application;
+
+    }
+
+    @Singleton
+    @Provides
+    PrefManager providePrefManager(Context context, Gson gson) {
+        return new PrefManager(context, gson);
+
+    }
+
+    @Singleton
+    @Provides
+    Gson provideGson() {
+        return new Gson();
+    }
 }
