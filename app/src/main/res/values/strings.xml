@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GoJekWeather</string>
+    <string name="string_temp_degree">%1$s &#176;</string>
+    <string name="temp_celcius">%1$s C</string>
+    <string name="string_error">Something went wrong at our end</string>
+    <string name="string_retry">RETRY</string>
 </resources>

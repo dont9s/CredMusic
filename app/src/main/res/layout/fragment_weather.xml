@@ -22,28 +22,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Loading"
+
+        <include
+            layout="@layout/layout_loading"
             android:visibility="@{viewModel.weatherLoadStatusLiveData == loadStatus.LOADING? View.VISIBLE:View.GONE}" />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Loaded"
+        <include
+            layout="@layout/layout_weather"
             android:visibility="@{viewModel.weatherLoadStatusLiveData == loadStatus.SUCCESS_LOADED? View.VISIBLE:View.GONE}" />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Failure"
-            android:visibility="@{viewModel.weatherLoadStatusLiveData == loadStatus.FAILURE_LOAD? View.VISIBLE:View.GONE}" />
+        <include
+            layout="@layout/layout_error"
+            android:visibility="@{viewModel.weatherLoadStatusLiveData == loadStatus.FAILURE_LOAD? View.VISIBLE:View.GONE}"
 
+            />
     </FrameLayout>
 </layout>
