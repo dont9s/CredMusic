@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.hibrianlee.imageanalyzer.activity.GalleryActivity">
@@ -16,27 +15,34 @@
         <variable
             name="viewModel"
             type="com.gojek.weather.viewmodel.WeatherViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.gojek.weather.view.ui.weather.WeatherFragment" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
+
         android:layout_height="match_parent">
 
 
         <include
+            android:id="@+id/include_loading"
             layout="@layout/layout_loading"
-            android:visibility="@{viewModel.weatherLoadStatusLiveData == loadStatus.LOADING? View.VISIBLE:View.GONE}" />
+            android:visibility="gone" />
 
 
         <include
+            android:id="@+id/include_weather"
             layout="@layout/layout_weather"
-            android:visibility="@{viewModel.weatherLoadStatusLiveData == loadStatus.SUCCESS_LOADED? View.VISIBLE:View.GONE}" />
+            android:visibility="gone" />
 
 
         <include
+            android:id="@+id/include_error"
             layout="@layout/layout_error"
-            android:visibility="@{viewModel.weatherLoadStatusLiveData == loadStatus.FAILURE_LOAD? View.VISIBLE:View.GONE}"
-
-            />
+            android:visibility="gone"
+            bind:fragment="@{fragment}" />
     </FrameLayout>
 </layout>
