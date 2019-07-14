@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -35,6 +36,7 @@ import javax.inject.Inject;
 public class WeatherFragment extends BaseFragment<WeatherViewModel> {
 
     @Inject
+    @VisibleForTesting
     ViewModelProvider.Factory factory;
 
 
@@ -51,6 +53,7 @@ public class WeatherFragment extends BaseFragment<WeatherViewModel> {
     private WeatherViewModel viewModel;
 
     public WeatherFragment() {
+
     }
 
 

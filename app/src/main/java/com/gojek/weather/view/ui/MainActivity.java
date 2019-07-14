@@ -1,6 +1,7 @@
 package com.gojek.weather.view.ui;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -71,15 +72,10 @@ public class MainActivity extends BaseActivity<MainActivityViewModel> {
                             fetchLocation();
                             break;
                         case PERMISSION_DENIED:
-                            //open settings
-                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                            Uri uri = Uri.parse("package:" + getApplicationContext().getPackageName());
-                            intent.setData(uri);
-                            startActivity(intent);
-
+                            openSettings();
                             break;
                         default:
-                            fetchLocation();
+                            openSettings();
                             break;
                     }
                 }
@@ -89,12 +85,27 @@ public class MainActivity extends BaseActivity<MainActivityViewModel> {
 
     }
 
+    private void openSettings() {
+        //open settings
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.parse("package:" + getApplicationContext().getPackageName());
+        intent.setData(uri);
+        startActivity(intent);
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION:
-                viewModel.setPersmissionStatus(PermissionManager.getPermissionStatus(this,
-                        Manifest.permission.ACCESS_FINE_LOCATION));
+                if (grantResults.length <= 0) {
+                    viewModel.setPersmissionStatus(PermissionStatus.PERMISSION_DENIED);
+                } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    viewModel.setPersmissionStatus(PermissionManager.getPermissionStatus(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION));
+                } else {
+                    viewModel.setPersmissionStatus(PermissionStatus.PERMISSION_DENIED);
+
+                }
                 break;
 
             default:
@@ -103,19 +114,38 @@ public class MainActivity extends BaseActivity<MainActivityViewModel> {
 
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CurrentLocationListener.REQUEST_CHECK_SETTINGS) {
+            switch (resultCode) {
+                case Activity.RESULT_OK:
+                    // All required changes were successfully made
+                    CurrentLocationListener.getInstance(this).getLocation();
+
+                    break;
+                case Activity.RESULT_CANCELED:
+                    // The user was asked to change settings, but chose not to
+                    loadFragment(new WeatherFragment());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     private void fetchLocation() {
         CurrentLocationListener.getInstance(MainActivity.this).observe(MainActivity.this,
                 new Observer<Location>() {
                     @Override
                     public void onChanged(Location location) {
-                        Toast.makeText(MainActivity.this, "Longitude : " + location.getLongitude() +
-                                " Latitude : " + location.getLatitude(), Toast.LENGTH_LONG).show();
+                        if (location != null) {
+                            prefManager.saveFloat(Constant.LATITUDE, ((long) location.getLatitude()));
+                            prefManager.saveFloat(Constant.LONGITUDE, ((long) location.getLongitude()));
 
-
-                        prefManager.saveFloat(Constant.LATITUDE, ((long) location.getLatitude()));
-                        prefManager.saveFloat(Constant.LONGITUDE, ((long) location.getLongitude()));
-
-
+                        }
                         loadFragment(new WeatherFragment());
                     }
                 });

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -77,6 +78,7 @@ public class CurrentLocationListener extends LiveData<Location> {
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 if (locationResult == null) {
+                    setValue(null);
                     return;
                 }
                /* for (Location location : locationResult.getLocations()) {
@@ -133,6 +135,7 @@ public class CurrentLocationListener extends LiveData<Location> {
                                     ResolvableApiException rae = ((ResolvableApiException) e);
                                     rae.startResolutionForResult(((MainActivity) appContext), REQUEST_CHECK_SETTINGS);
                                 } catch (IntentSender.SendIntentException sie) {
+                                    Log.e("sendIntentException", sie != null ? sie.getLocalizedMessage() : "error");
                                 }
                             }
                             break;
