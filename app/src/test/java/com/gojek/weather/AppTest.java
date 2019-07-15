@@ -1,37 +1,35 @@
 package com.gojek.weather;
 
-import androidx.lifecycle.Lifecycle;
+import android.Manifest;
+
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.gojek.weather.helper.Constant;
 import com.gojek.weather.helper.DateUtil;
 import com.gojek.weather.helper.PermissionManager;
+import com.gojek.weather.helper.PermissionStatus;
 import com.gojek.weather.helper.PrefManager;
 import com.gojek.weather.helper.WeatherLoadStatus;
 import com.gojek.weather.service.model.Weather;
-import com.gojek.weather.service.repository.ApixuService;
 import com.gojek.weather.service.repository.WeatherRepository;
-import com.google.gson.Gson;
+import com.gojek.weather.view.ui.MainActivity;
 
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.mock;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static org.junit.Assert.assertNull;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AppTest {
@@ -39,13 +37,26 @@ public class AppTest {
     @Mock
     private LiveData<Weather> weather;
 
-    private WeatherLoadStatus weatherLoadStatus;
+    private LiveData<WeatherLoadStatus> weatherLoadStatus;
+
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
     @Mock
     private PrefManager prefManager;
 
+    @Mock
+    LifecycleOwner lifecycleOwner;
 
     @Mock
     private WeatherRepository weatherRepository;
+
+    @Mock
+    MainActivity activity;
+
+
+    @Mock
+    Observer<WeatherLoadStatus> observer;
 
 
     public AppTest() {
@@ -53,28 +64,47 @@ public class AppTest {
 
     }
 
+
+    @Before
+    public void setUp() {
+        weatherLoadStatus = new MediatorLiveData<>();
+    }
+
+
     @Test
-    public void getWeatherTest() {
+    public void checkWeatherLoadStatusFail() {
 
-        String q = "Gurgaon";
-
-        when(prefManager.getFloat(Constant.LATITUDE, 0)).thenReturn((float) 28.26);
-        when(prefManager.getFloat(Constant.LONGITUDE, 0)).thenReturn((float) 77.03);
-
-        if (!(prefManager.getFloat(Constant.LATITUDE, 0) == 0 || prefManager.getFloat(Constant.LONGITUDE, 0) == 0))
-            q = prefManager.getFloat(Constant.LATITUDE, 0) + "," + prefManager.getFloat(Constant.LONGITUDE, 0);
-
-
-        weather = weatherRepository.getWeather(Constant.APIXU_API_KEY,
-                q,
-                5);
-
-        weather.observe(null, new Observer<Weather>() {
+        observer = new Observer<WeatherLoadStatus>() {
             @Override
-            public void onChanged(Weather weather) {
-                assertNull(weather.getCurrent().getTempC());
+            public void onChanged(WeatherLoadStatus weatherLoadStatus) {
+
             }
-        });
+        };
+
+        weatherLoadStatus.observeForever(observer);
+
+        ((MediatorLiveData<WeatherLoadStatus>) weatherLoadStatus).postValue(WeatherLoadStatus.FAILURE_LOAD);
+
+        assertNotEquals(weatherLoadStatus.getValue(), WeatherLoadStatus.SUCCESS_LOADED);
+
+
+    }
+
+    @Test
+    public void checkWeatherLoadStatusSuccess() {
+
+        observer = new Observer<WeatherLoadStatus>() {
+            @Override
+            public void onChanged(WeatherLoadStatus weatherLoadStatus) {
+
+            }
+        };
+
+        weatherLoadStatus.observeForever(observer);
+
+        ((MediatorLiveData<WeatherLoadStatus>) weatherLoadStatus).postValue(WeatherLoadStatus.SUCCESS_LOADED);
+
+        assertEquals(weatherLoadStatus.getValue(), WeatherLoadStatus.SUCCESS_LOADED);
 
 
     }
@@ -84,9 +114,16 @@ public class AppTest {
 
         String date = "14-07-2019";
 
-//        System.out.println(DateUtil.getDayOfWeek(date));
+        assertEquals("Tuesday", DateUtil.getDayOfWeek(date));
     }
 
+    @Test
+    public void testDateUtilFail() {
+
+        String date = "14-07-2019";
+
+        assertNotEquals("Wednesday", DateUtil.getDayOfWeek(date));
+    }
 
 
 }
