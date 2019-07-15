@@ -18,7 +18,10 @@ import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -47,13 +50,36 @@ public class UiTests {
 
     }
 
+    @Test
+    public void checkWeatherIsDisplayed() {
+        onView(withId(R.id.tv_current_temp)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void checkErrorIsDisplayed() {
+        onView(withId(R.id.tv_error)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void checkWeatherScreenVisible() {
+
+        onView(withId(R.id.include_weather))
+                .check(isVisibleView());
+
+
+    }
+
     public ViewAssertion isVisibleView() {
         return getViewAssertion(ViewMatchers.Visibility.VISIBLE);
     }
 
 
+    public ViewAssertion isGone() {
+        return getViewAssertion(ViewMatchers.Visibility.GONE);
+    }
+
     private ViewAssertion getViewAssertion(ViewMatchers.Visibility visibility) {
-        return ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(visibility));
+        return matches(ViewMatchers.withEffectiveVisibility(visibility));
     }
 
 }
