@@ -1,5 +1,5 @@
 
-package com.gojek.weather.service.model;
+package com.gojek.weather.service.model.weather;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

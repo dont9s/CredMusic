@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.gojek.weather.GojekWeatherApplication;
 import com.gojek.weather.helper.PrefManager;
+import com.gojek.weather.service.repository.ApiService;
 import com.gojek.weather.service.repository.ApixuService;
 import com.google.gson.Gson;
 
@@ -25,6 +26,17 @@ public class AppModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ApixuService.class);
+
+    }
+
+    @Singleton
+    @Provides
+    ApiService provideApiService() {
+        return new Retrofit.Builder()
+                .baseUrl(ApiService.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(ApiService.class);
 
     }
 

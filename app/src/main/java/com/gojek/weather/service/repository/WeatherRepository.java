@@ -4,7 +4,7 @@ package com.gojek.weather.service.repository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.gojek.weather.service.model.Weather;
+import com.gojek.weather.service.model.weather.Weather;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

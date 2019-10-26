@@ -1,6 +1,6 @@
 package com.gojek.weather.service.repository;
 
-import com.gojek.weather.service.model.Weather;
+import com.gojek.weather.service.model.weather.Weather;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

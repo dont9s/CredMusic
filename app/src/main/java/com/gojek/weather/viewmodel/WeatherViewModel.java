@@ -1,9 +1,6 @@
 package com.gojek.weather.viewmodel;
 
-import android.view.View;
-
 import androidx.annotation.NonNull;
-import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -11,7 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.gojek.weather.helper.Constant;
 import com.gojek.weather.helper.PrefManager;
 import com.gojek.weather.helper.WeatherLoadStatus;
-import com.gojek.weather.service.model.Weather;
+import com.gojek.weather.service.model.weather.Weather;
 import com.gojek.weather.service.repository.WeatherRepository;
 
 import javax.inject.Inject;

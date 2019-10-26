@@ -1,20 +1,15 @@
 package com.gojek.weather;
 
-import android.Manifest;
-
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 
-import com.gojek.weather.helper.Constant;
 import com.gojek.weather.helper.DateUtil;
-import com.gojek.weather.helper.PermissionManager;
-import com.gojek.weather.helper.PermissionStatus;
 import com.gojek.weather.helper.PrefManager;
 import com.gojek.weather.helper.WeatherLoadStatus;
-import com.gojek.weather.service.model.Weather;
+import com.gojek.weather.service.model.weather.Weather;
 import com.gojek.weather.service.repository.WeatherRepository;
 import com.gojek.weather.view.ui.MainActivity;
 
@@ -23,13 +18,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AppTest {

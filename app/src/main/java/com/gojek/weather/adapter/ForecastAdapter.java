@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gojek.weather.R;
 import com.gojek.weather.helper.DateUtil;
-import com.gojek.weather.service.model.Forecastday;
+import com.gojek.weather.service.model.weather.Forecastday;
 
 import java.util.List;
 

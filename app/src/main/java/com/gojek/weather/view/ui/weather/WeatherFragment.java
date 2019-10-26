@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,13 +22,12 @@ import com.gojek.weather.R;
 import com.gojek.weather.adapter.ForecastAdapter;
 import com.gojek.weather.databinding.FragmentWeatherBinding;
 import com.gojek.weather.helper.WeatherLoadStatus;
-import com.gojek.weather.service.model.Forecastday;
-import com.gojek.weather.service.model.Weather;
+import com.gojek.weather.service.model.weather.Forecastday;
+import com.gojek.weather.service.model.weather.Weather;
 import com.gojek.weather.view.base.BaseFragment;
 import com.gojek.weather.viewmodel.WeatherViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
