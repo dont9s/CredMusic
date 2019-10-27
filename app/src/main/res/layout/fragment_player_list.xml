@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:shimmer="http://schemas.android.com/apk/res-auto">
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools">
 
 
     <data>
@@ -16,8 +17,6 @@
             name="fragment"
             type="com.gojek.weather.view.ui.musicplayer.PlayerListFragment" />
     </data>
-
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -51,7 +50,123 @@
             android:layout_width="match_parent"
             android:visibility="gone"
             android:id="@+id/rv_songs"
+            android:layout_marginBottom="@dimen/dim_60"
             android:layout_height="match_parent"/>
 
+
+            <LinearLayout
+
+                android:background="@color/light_grey"
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/ll_player"
+                    android:padding="@dimen/dim_16"
+
+
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dim_60">
+
+
+                    <ImageButton
+                        android:id="@+id/ib_open_close"
+                        android:layout_weight=".5"
+                        android:layout_width="0dp"
+                        android:onClick="@{(view) -> fragment.onPlayerClick(view)}"
+                        shimmer:srcCompat="@drawable/ic_arrow_up"
+                        android:layout_height="wrap_content"/>
+                    <SeekBar
+                        android:id="@+id/seekbar"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content" />
+
+                    <Space
+                        android:layout_width="@dimen/dim_16"
+                        android:layout_height="0dp"/>
+                    <ImageButton
+                        android:id="@+id/ib_play_pause"
+                        android:layout_width="0dp"
+                        shimmer:srcCompat="@drawable/play_pause_state"
+                        android:layout_weight="1"
+                        android:onClick="@{(view) -> fragment.onPlayPause(view)}"
+                        android:layout_height="wrap_content" />
+
+                    <ProgressBar
+                        android:id="@+id/pb_loading"
+                        android:visibility="gone"
+                        android:layout_width="@dimen/dim_16"
+                        android:layout_height="@dimen/dim_16"/>
+                </LinearLayout>
+                <FrameLayout
+                    android:id="@+id/fl_main"
+                    android:paddingStart="@dimen/dim_16"
+                    android:paddingEnd="@dimen/dim_16"
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:id="@+id/iv_cover"
+                        android:scaleType="centerCrop"
+                        android:layout_width="match_parent"
+                        android:minHeight="@dimen/dim_150"
+                        android:layout_height="match_parent"/>
+
+                    <LinearLayout
+                        android:layout_gravity="bottom"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_song"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dim_4"/>
+                        <TextView
+                            android:id="@+id/tv_artist"
+                            android:maxLines="1"
+                            android:textSize="@dimen/text_14"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dim_16"/>
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/black"
+                            android:text="@string/buy"
+                            android:textStyle="bold"
+                            android:id="@+id/bt_buy"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </FrameLayout>
+
+
+
+            </LinearLayout>
+
+
+
+
+
     </FrameLayout>
+
+
+
 </layout>

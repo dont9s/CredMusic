@@ -4,4 +4,18 @@
     <string name="temp_celcius">%1$s C</string>
     <string name="string_error">Something went wrong at our end</string>
     <string name="string_retry">RETRY</string>
+    <string name="buy">BUY</string>
+    <string name="play_icon_upper_path_data">M 44 32 L 44 64 L 100 64 L 100 64 Z</string>
+    <string name="play_icon_bottom_path_data">M 44 96 L 44 64 L 100 64 L 100 64 Z</string><!-- Pause Icon -->
+    <string name="pause_icon_upper_path_data">M 32 40 L 32 56  L 96 56 L 96 40 Z</string>
+    <string name="pause_icon_bottom_path_data">M 32 88 L 32 72 L 96 72 L 96 88 Z</string>
+    <string name="play_icon_top_path_name">top_path</string>
+    <string name="play_icon_group_top">group_top</string>
+    <string name="play_icon_group_bottom">group_bottom</string>
+    <string name="play_icon_bottom_path_name">bottom_path</string>
+    <string name="play_icon_group_parts">play_group_parts</string>
+
+
+    <string name="pause_vector_path">M12,10L20,10L20,38L12,38ZM28,10L36,10L36,38L28,38Z</string>
+    <string name="play_vector_path">M16,24L38,24L27.3,30.8L16,38ZM16,10L27.3,17.2L38,24L16,24Z</string>
 </resources>

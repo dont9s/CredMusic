@@ -3,6 +3,7 @@ package com.gojek.weather.adapter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -29,9 +31,11 @@ import java.util.List;
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder> {
 
     private List<Song> songs;
+    private MutableLiveData<Pair<Song, Boolean>> currentSong;
 
-    public SongAdapter(List<Song> songs) {
+    public SongAdapter(List<Song> songs, MutableLiveData<Pair<Song, Boolean>> currentSong) {
         this.songs = songs;
+        this.currentSong = currentSong;
     }
 
     @NonNull
@@ -53,6 +57,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
             Glide.with(holder.itemView.getContext())
                     .load(song.getCoverImage())
                     .into(holder.ivCover);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currentSong.setValue(new Pair<>(songs.get(position), true));
+                }
+            });
 
         }
     }
