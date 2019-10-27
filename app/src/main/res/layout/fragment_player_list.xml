@@ -11,11 +11,11 @@
 
         <variable
             name="viewModel"
-            type="com.gojek.weather.viewmodel.PlayerListViewModel" />
+            type="com.cred.music.viewmodel.PlayerListViewModel" />
 
         <variable
             name="fragment"
-            type="com.gojek.weather.view.ui.musicplayer.PlayerListFragment" />
+            type="com.cred.music.view.ui.musicplayer.PlayerListFragment" />
     </data>
     <FrameLayout
         android:layout_width="match_parent"
