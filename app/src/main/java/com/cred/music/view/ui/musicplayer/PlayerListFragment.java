@@ -68,7 +68,6 @@ public class PlayerListFragment extends BaseFragment<PlayerListViewModel> implem
 
 
     private MediaPlayer mediaPlayer;
-    private Player player;
 
     private PlayerListViewModel viewModel;
     private LinearLayoutManager layoutManager;
@@ -223,8 +222,6 @@ public class PlayerListFragment extends BaseFragment<PlayerListViewModel> implem
             flag = 0;
             ibPlayPause.setSelected(true);
             seekBar.setProgress(0);
-
-
             pauseAudio();
             loadAndPlay();
         }
@@ -280,17 +277,36 @@ public class PlayerListFragment extends BaseFragment<PlayerListViewModel> implem
 
     private void loadAndPlay() {
         if (flag == 0) {
-            //  new Player().execute(URL);
-
-            player = new Player();
-            player.execute(currentSong.getValue().first.getUrl());
+            loadNewSong();
 
         } else {
             if (mediaPlayer != null) {
-
                 playAudio();
-
             }
+        }
+    }
+
+    private void loadNewSong() {
+        pbLoading.setVisibility(View.VISIBLE);
+        try {
+            mediaPlayer.setDataSource(currentSong.getValue().first.getUrl());
+            mediaPlayer.prepareAsync();
+
+
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    lengthOfAudio = mediaPlayer.getDuration();
+                    pbLoading.setVisibility(View.GONE);
+                    flag = 1;
+                    playAudio();
+                }
+
+            });
+
+
+        } catch (Exception e) {
+            flag = 0;
         }
     }
 
@@ -352,58 +368,6 @@ public class PlayerListFragment extends BaseFragment<PlayerListViewModel> implem
 
                 handler.postDelayed(r, 1000);
             }
-        }
-    }
-
-
-    class Player extends AsyncTask<String, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(String... params) {
-
-            Boolean prepared;
-
-            try {
-                mediaPlayer.setDataSource(params[0]);
-                mediaPlayer.prepare();
-                lengthOfAudio = mediaPlayer.getDuration();
-
-                prepared = true;
-
-            } catch (IllegalArgumentException e) {
-
-                prepared = false;
-                e.printStackTrace();
-            } catch (SecurityException e) {
-
-                prepared = false;
-
-            } catch (IllegalStateException e) {
-
-                prepared = false;
-            } catch (IOException e) {
-                prepared = false;
-            }
-
-            return prepared;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pbLoading.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-            pbLoading.setVisibility(View.GONE);
-            if (aBoolean) {
-                flag = 1;
-            } else {
-                flag = 0;
-            }
-            playAudio();
-
         }
     }
 
